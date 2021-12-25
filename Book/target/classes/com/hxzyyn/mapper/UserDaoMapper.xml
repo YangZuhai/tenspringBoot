@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzyyn.dao.UserDao">
+
+    <sql id="select*">
+        select `id`, `name`, `password`, `age`, `nickname`, `usertype`
+        from `user`
+    </sql>
+
+    <select id="login" resultType="User" parameterType="User">
+        <include refid="select*"/>
+        <where>
+            <if test="id!=0">
+                `id`=#{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and `name`=#{name}
+            </if>
+            <if test="password!=null and password!=''">
+                and `password`=#{password}
+            </if>
+            <if test="nickname!=null and nickname!=''">
+                and `nickname`=#{nickname}
+            </if>
+        </where>
+
+    </select>
+
+
+</mapper>
