@@ -1,0 +1,12 @@
+
+N	java:S106"9Replace this use of System.out or System.err by a logger.(¢Õª¡
+P
+java:S1128";Remove this unused import 'javafx.application.Application'.(í™şj
+Q
+java:S1128";Remove this unused import 'javax.servlet.http.HttpSession'.(í¨ô
+o
+java:S2293 "YReplace the type specification in this constructor call with the diamond operator ("<>").(üÿ“Ç
+^
+java:S1192%"HDefine a constant instead of duplicating this literal "success" 4 times.(¼±³š
+ƒ
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".( ¢®

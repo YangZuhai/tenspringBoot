@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人网上银行----账户余额</title>
+</head>
+
+<div style="font-size: 28px;text-align: center;">
+<h2>您的余额是:</h2>
+<h4 style="display: inline-block">人民币:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+<span  th:if="${money} ne null"  th:text="|${money}元|"></span>
+</div>
+</html>

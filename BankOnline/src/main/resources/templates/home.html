@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>个人网上银行主页面</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<style>
+    a:hover {
+        text-decoration: auto;
+    }
+</style>
+
+<body th:if="${application.account ne null}">
+<header class="container-fluid" style="height: 50px;font-size: 21px;">
+
+    <div class="row">
+        <div class="head">
+            <input type="hidden" id="URL" th:value="${URL}"/>
+            <span th:if="${application.account}ne null"
+                  th:text="|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;卡号:&nbsp; ${application.account.cardno}|"/>
+            <a th:href="@{/home/write}" onclick="return leave();">&nbsp;退出登录</a>
+        </div>
+    </div>
+</header>
+
+<br/>
+<br/>
+
+<div class="container-fluid">
+    <div class="row" style="height: 500px;">
+        <div style="width: 101px;text-align: center;">
+            <dl>
+                <dt>
+                <dd>
+                    <a onclick="balance();" target="show">查询余额</a>
+                    <!--                <input type="hidden" id="url"/>-->
+                </dd>
+                </dt>
+                <br/>
+                <dt>
+                <dd>
+                    <a onclick="transfer();" target="show">转账</a>
+                </dd>
+                </dt>
+                <br/>
+                <dt>
+                <dd>
+                    <a onclick="record();" target="show">查询交易记录</a>
+                </dd>
+                </dt>
+                <br/>
+                <dt>
+                <dd>
+                    <a onclick="passwords();" target="show">修改密码</a>
+                </dd>
+                </dt>
+                <br/>
+            </dl>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <iframe id="show" th:src="${url}"
+                        style="height: 400px;position: relative;border:solid 1px;top: -183px;right: 24px;border-width: 12px;border-radius: 19px;border-color: cadetblue;width: 80%"
+                        class="hidden-xs hidden-sm col-md-12 col-la-12">
+
+                </iframe>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+<script>
+    var URL = document.getElementById("URL");
+    var url = "[[@{/}]]"
+
+    function balance() {
+        window.location.href = URL.value + "/home/index?flag=balance";
+    }
+
+    function transfer() {
+        window.location.href = URL.value + "/home/index?flag=transfer";
+    }
+
+    function record() {
+        window.location.href = URL.value + "/home/index?flag=record";
+
+    }
+
+    function passwords() {
+        window.location.href = URL.value + "/home/index?flag=password";
+    }
+
+
+    function leave() {
+        var leave = confirm("确定退出网上银行吗?")
+        if (leave) {
+            alert("Bye~")
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+</script>
+
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+</body>
+
+<!--<body th:if="${application.account eq null}" onload="newsOne()">-->
+<!--<h1>请重新刷新页面</h1>-->
+
+
+<!--<script>-->
+<!--    function newsOne() {-->
+<!--        location.reload();-->
+<!--    }-->
+<!--</script>-->
+
+<!--</body>-->
+
+</html>

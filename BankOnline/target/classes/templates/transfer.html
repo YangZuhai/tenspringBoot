@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人网上银行--转账界面</title>
+</head>
+
+<body style="text-align: center;line-height: 59px" th:if="${pandin eq null}">
+<h2>当前操作,转账。请输入转入账号和金额后点击"转账"按钮</h2>
+<form>
+    <label>转入账号:</label>
+    <input id="cardNo" name="cardNo" required="required"/>
+    <br/>
+    <label>转账金额:</label>
+    <!--    h5设置数字并两位小数-->
+    <input type="number" step="0.01" id="money" name="money" required="required"/>
+    <br/>
+    <input type="button" onclick="judgego()" value="转账"/>
+
+</form>
+
+</body>
+
+<body th:if="${pandin ne null}" style="line-height: 287px;">
+<div style="text-align: center">
+    <h1>操作已成功!请继续选择其他服务</h1>
+</div>
+</body>
+
+
+<script th:src="@{/js/axios.min.js}"></script>
+
+<script>
+
+    var cardNo=document.getElementById("cardNo");
+    var moneys=document.getElementById("money");
+    var url="[[@{/}]]"
+
+    function judgego() {
+        if (check()==true) {
+            axios({
+                method: 'post',
+                url: url + 'home/transfer',
+                data: {
+                    cardno: cardNo.value,
+                    balance: moneys.value
+                }
+            }).then((response) => {
+                //    回调函数登录成功
+                if (response.data.success === true) {
+                    alert(response.data.msg);
+                    window.location.href = url+"home/transferTwo";
+                    //    登录失败
+                } else {
+                    alert(response.data.msg);
+
+                }
+            });
+        }
+    }
+
+    function check() {
+
+        if (cardNo.value.length !== 19) {
+            alert("请正确填写要转入的19位账号");
+            return false;
+        }
+        if (moneys.value <= 0) {
+            alert("请正确填写转账金额");
+            return false;
+        }
+
+        return true
+    }
+
+
+</script>
+
+</html>

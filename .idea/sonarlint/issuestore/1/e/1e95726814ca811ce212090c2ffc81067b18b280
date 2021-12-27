@@ -1,0 +1,20 @@
+
+N	java:S106$"9Replace this use of System.out or System.err by a logger.(¶ä­
+S	java:S106k"9Replace this use of System.out or System.err by a logger.(ÍáÌ¿şÿÿÿÿ
+S	java:S106m"9Replace this use of System.out or System.err by a logger.(Ñí¸»şÿÿÿÿ
+V	java:S125w"<This block of commented-out lines of code should be removed.(¸’Ñôşÿÿÿÿ
+O	java:S106‹"9Replace this use of System.out or System.err by a logger.(Ï¦´÷
+O	java:S106"9Replace this use of System.out or System.err by a logger.(¶…“
+O	java:S106’"9Replace this use of System.out or System.err by a logger.(³º­ê
+O	java:S106–"9Replace this use of System.out or System.err by a logger.(ĞÂÑé
+T	java:S106š"9Replace this use of System.out or System.err by a logger.(—²©Óşÿÿÿÿ
+;
+java:S1168 "$Return an empty map instead of null.(¥¹ï
+a
+java:S1192+"FDefine a constant instead of duplicating this literal "/home" 4 times.(Ğû‹õıÿÿÿÿ
+^
+java:S1192{"HDefine a constant instead of duplicating this literal "success" 4 times.(¼±³š
+c
+java:S1192#"HDefine a constant instead of duplicating this literal "account" 5 times.(ÑøÆŸûÿÿÿÿ
+ˆ
+java:S1319i"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(«µÔÔøÿÿÿÿ

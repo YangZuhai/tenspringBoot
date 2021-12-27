@@ -1,0 +1,9 @@
+
+E
+java:S3740*"/Provide the parametrized type for this generic.(ò½ð‹
+U
+java:S4719 ":Replace Charset.forName() call with StandardCharsets.UTF_8(Ç“ª»ûÿÿÿÿ
+X
+java:S1874%"=Remove this use of "APPLICATION_JSON_UTF8"; it is deprecated.(Å¸·þýÿÿÿÿ
+U
+java:S4719-":Replace Charset.forName() call with StandardCharsets.UTF_8(©›èµýÿÿÿÿ

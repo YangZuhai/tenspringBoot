@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body >
+<div style="width: 500px;margin: 20px auto;background-color: greenyellow;text-align: center">
+    <h1>个人网上银行</h1>
+    <input type="hidden" id="shua" th:value="${msg}"/>
+    <form>
+        <label>卡号:</label>
+        <input id="cardNo" required="required"/>
+        <span id="msg"></span>
+        <br/>
+        <label>密码:</label>
+        <input type="password" id="pwd" required="required"/>
+        <br/>
+        <!--<input type="hidden" th:value="" id="url"/>-->
+        <input type="button" value="登录网上银行" onclick="loginOne()"/>
+    </form>
+
+</div>
+<!--script 不能半闭合-->
+<script th:src="@{/js/axios.min.js}"></script>
+<script>
+    var cardNo = document.getElementById("cardNo");
+    var pwd = document.getElementById("pwd");
+    var url = "[[@{/}]]";
+    var msg = document.getElementById("msg");
+
+
+    function loginOne() {
+        if (check() == true) {
+
+            axios({
+                method: 'post',
+                url: url + 'account/login',
+                data: {
+                    cardNo: cardNo.value,
+                    password: pwd.value
+                }
+            }).then((response) => {
+                //    回调函数登录成功
+                if (response.data.success == true) {
+                    alert(response.data.msg);
+                    window.location.href = url + "home/index";
+                    //    登录失败
+                } else {
+                    alert(response.data.msg);
+                }
+            });
+
+        }
+    }
+
+    function check() {
+        if (cardNo.value == "") {
+            alert("卡号不能为空")
+            return false;
+        }
+        if (pwd.value == "") {
+            alert("密码不能为空")
+            return false;
+        }
+
+        if (cardNo.value.length != 19) {
+            alert("卡号必须为19位");
+            return false;
+        }
+        if (pwd.value.length != 6) {
+            alert("密码必须为6位");
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+</body>
+</html>

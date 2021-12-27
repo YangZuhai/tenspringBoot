@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzyyn.dao.RecordDao">
+    <sql id="select*">
+        select `id`,`cardno`,`transactionDate`,`expense`,`income`,`balance`,`transactionType`,'remark'
+        from `transaction_record`
+    </sql>
+
+    <select id="findAll" resultType="Record">
+        <include refid="select*"/>
+    </select>
+
+    <insert id="addRecordData" parameterType="Record" useGeneratedKeys="true" keyProperty="id">
+        insert into `transaction_record`(`cardno`,`transactionDate`,`expense`,`income`,`balance`,`transactionType`,`remark`)
+        values(#{cardno},#{transactionDate},#{expense},#{income},#{balance},#{transactionType},#{remark})
+    </insert>
+
+</mapper>

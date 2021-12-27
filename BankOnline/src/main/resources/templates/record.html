@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title></title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<style>
+    a {
+        color: black;
+        text-decoration: none;
+        font-weight: 200;
+        background: silver;
+        display: inline-block;
+        border-radius: 3px;
+        font-family: monospace;
+    }
+
+    a:hover {
+        text-decoration: auto;
+    }
+</style>
+
+<body onload="load();">
+
+<div style="text-align: center">
+<!--    <input type="hidden" />-->
+    <form th:action="@{/home/recordTwo}" method="get">
+        <h3>当前操作，查询交易记录。请选择时间范围后点"查询"按钮</h3>
+        <div>
+            <p>
+                查询日期范围:
+                <input type="datetime-local" id="dateOne" name="dateOne" required="required"/>
+                <span>到</span>
+                <input type="datetime-local" id="dateTwo" name="dateTwo" required="required"/>
+                <input type="submit" value="查询">
+                <input type="hidden" name="currentSize" th:value="${currentSize}"/>
+
+            </p>
+        </div>
+        <br/>
+        <br/>
+        <div th:if="${recordList.size() ne 0}">
+            <table class="table">
+                <tr style="">
+                    <td>id</td>
+                    <td>cardno</td>
+                    <td>transactionDate</td>
+                    <td>expense</td>
+                    <td>income</td>
+                    <td>balance</td>
+                    <td>transactionType</td>
+                    <td>remark</td>
+                </tr>
+
+                <tr th:each="record:${recordList}" style="">
+                    <td th:text="${record.id}"></td>
+                    <td th:text="${record.cardno}"></td>
+                    <td th:text="${#dates.format(record.transactionDate,'yyyy年MM月dd日 HH:mm:ss')}"></td>
+                    <td th:text="${record.expense}"></td>
+                    <td th:text="${record.income}"></td>
+                    <td th:text="${record.balance}"></td>
+                    <td th:text="${record.transactionType}"></td>
+                    <td th:text="${record.remark}"></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <br/>
+        <div th:if="${recordList.size() ne 0}">
+            <div th:if="${currentSize eq 1 and currentSize ne page.pageAll}">
+                <a th:href="@{/home/recordTwo(currentSize=${currentSize+1},dateOne=null,dateTwo=null)}">下一页</a>
+                <a th:href="@{/home/recordTwo(currentSize=${page.pageAll},dateOne=null,dateTwo=null)}">末页</a>
+            </div>
+
+            <div th:if="${currentSize eq page.pageAll and currentSize ne 1}">
+                <a th:href="@{/home/recordTwo(currentSize=1,dateOne=null,dateTwo=null)}">首页</a>
+                <a th:href="@{/home/recordTwo(currentSize=${currentSize-1},dateOne=null,dateTwo=null)}">上一页</a>
+            </div>
+
+            <div style="display: inline-flex;text-indent: 9px;margin: 10px;">
+
+
+                <div th:if="${currentSize ne page.pageAll and currentSize gt 1}">
+                    <a th:href="@{/home/recordTwo(currentSize=1,dateOne=null,dateTwo=null)}">首页</a>
+                    <a th:href="@{/home/recordTwo(currentSize=${currentSize-1},dateOne=null,dateTwo=null)}">上一页</a>
+                </div>
+
+                <div th:if="${currentSize ne 1 and currentSize lt page.pageAll}">
+                    <a th:href="@{/home/recordTwo(currentSize=${currentSize+1},dateOne=null,dateTwo=null)}">下一页</a>
+                    <a th:href="@{/home/recordTwo(currentSize=${page.pageAll},dateOne=null,dateTwo=null)}">末页</a>
+                </div>
+
+            </div>
+
+            <br/>
+            <div style="display: inline-flex;letter-spacing: 8px;text-indent: 14px;">
+                <div th:each="start:${startList}">
+                    <a th:if="${start eq currentSize}" th:text="${start}" style="font-weight: 700;color: white"></a>
+                    <a th:if="${start ne currentSize}"  th:text="${start}"></a>
+                </div>
+                <br/>
+                <span th:text="|(共${page.pageAll}页,${page.numberAll}条数据)|"></span>
+            </div>
+        </div>
+
+        <div th:if="${recordList.size() eq 0}">
+            <span th:text="此范围内没有交易记录" style="text-align: center;font-size: 18px;font-weight: 700"></span>
+        </div>
+
+    </form>
+
+</div>
+
+<script th:inline="javascript" type="text/javascript">
+    function load(){
+     var recordLost=/*[[${recordList}]]*/null;
+     if(recordLost.length==0){
+         alert("本次没有查询到任何结果，请规范输入查询日期")
+     }
+    }
+</script>
+
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+</body>
+</html>
