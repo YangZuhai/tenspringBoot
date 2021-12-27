@@ -1,11 +1,10 @@
 package com.hxzyyn.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hxzyyn.entity.User;
 
 import java.util.List;
 
-public interface UserDao  extends BaseMapper<User> {
+public interface UserDao{
     /**
      * 登录
      * @param user
@@ -17,6 +16,6 @@ public interface UserDao  extends BaseMapper<User> {
      * 查询全部
      * @return
      */
-    List<User> findAll();
+//    List<User> findAll();
 
 }

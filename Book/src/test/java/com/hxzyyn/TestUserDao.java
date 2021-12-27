@@ -16,15 +16,14 @@ public class TestUserDao  extends  TestMain{
         this.userDao = userDao;
     }
 
-    @Autowired
-    private UserService userService;
+
 
 
     @Test
     public void testFindAll(){
        try{
 //           System.out.println(userDao.selectList(null));
-//           System.out.println(userDao.login(new User(0, "", "", 0, null, 0)));
+           System.out.println(userDao.login(new User(1, null, null, 0, null, 0)));
 //           userService.findAll().forEach(System.out::println);
        }catch(Exception e){
            e.printStackTrace();

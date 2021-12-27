@@ -17,27 +17,29 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     @Override
-    public List<Book> findAll(Book book) {
-        return bookDao.findAll(book);
+    public List<Book> findAll() {
+        return bookDao.findAll();
+    }
+
+    @Override
+    public Book byWhere(Book book) {
+        return bookDao.byWhere(book);
     }
 
     @Override
     public void addBook(Book book) {
-        bookDao.insert(book);
-    }
-
-    @Override
-    public Book byWhere(int id) {
-        return bookDao.selectById(id);
+        bookDao.addBook(book);
     }
 
     @Override
     public void updateBook(Book book) {
-        bookDao.updateById(book);
+        bookDao.updateBook(book);
     }
 
     @Override
-    public void delBook(int id) {
-        bookDao.deleteById(id);
+    public void deleteBook(int id) {
+        bookDao.deleteBook(id);
     }
+
+
 }

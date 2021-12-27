@@ -13,7 +13,7 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-mybatis-plus:
+mybatis:
   mapper-locations: classpath:com/hxzyyn/mapper/*.xml
   type-aliases-package: com.hxzyyn.entity
 

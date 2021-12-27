@@ -8,5 +8,5 @@ public interface UserService {
 
     User login(User user);
 
-    List<User> findAll();
+//    List<User> findAll();
 }

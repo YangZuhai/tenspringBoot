@@ -16,85 +16,147 @@
   <!--[if lt IE 9]>
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <![endif]-->
+  <![endif]-->
 </head>
 
 
 <style>
-  tbody{
+  tbody {
     display: block;
-    width: 766px;
+    width: 1088px;
   }
 
-  .a{
-   background: antiquewhite;
+  .a {
+    background: antiquewhite;
   }
-  .b{
-   background: #fff;
+
+  .b {
+    background: #fff;
   }
-  .h{
+
+  .h {
     text-align: center;
     border: solid;
-    width: 768px;
+    width: 1090px;
     border-width: 2px;
     margin: 0px;
     background: antiquewhite;
   }
 
-  tr td>a{
+
+  tr td > a {
     display: inline-block;
     width: 28px;
   }
+
+  .a1 {
+
+
+  }
+
+  .a1 > a {
+
+  }
+
 
 </style>
 
 
 <body>
 
-<div style="width: 500px">
-  <div>
-    <h1 style="text-align: center" class="h">图书详细信息列表</h1>
+<form th:action="@{/findAll}" method="get">
+
+  <div style="width: 500px">
+    <div>
+      <h1 style="text-align: center" class="h">图书详细信息列表</h1>
+    </div>
+    <div>
+      <table border="1" class="table">
+        <tr>
+          <td>id</td>
+          <td style="width: 128px;">书名</td>
+          <td style="width: 250px">出版社</td>
+          <td style="width: 125px;">作者</td>
+          <td>出版日期</td>
+          <td>页数</td>
+          <td>价格</td>
+          <td>内容摘要</td>
+          <td colspan="2">操作</td>
+        </tr>
+
+        <tr th:each="book,hp:${books}" th:class="${hp.odd}?a:b">
+          <td th:text="${book.id}"></td>
+          <td th:text="${book.name}"></td>
+          <td th:text="${book.author}"></td>
+          <td th:text="${book.publish}"></td>
+          <td th:text="${#dates.format(book.publicshdate,'yyyy年MM月dd日')}"></td>
+          <td th:text="${book.page}"></td>
+          <td th:text="${book.price}"></td>
+          <td th:text="${book.content}"></td>
+          <td>
+            <a th:href="@{/updateBook(id=${book.id})}">修改</a>
+          </td>
+          <td>
+            <a th:href="@{/delBook(id=${book.id})}">删除</a>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            <button>
+              <a th:href="@{/addBook}">新增图书</a>
+            </button>
+          </td>
+          <td th:text="|共${pageInfo.total}条记录|">
+          </td>
+          <td>
+            <span>每页</span>
+            <input th:value="${pageInfo.pageSize}" name="pageSize"/>
+            <span>条</span>
+          </td>
+          <td th:text="|第${pageInfo.pageNum}页/共${pageInfo.pages}页|">
+          </td>
+
+          <td colspan="6">
+            <div class="a1">
+              <a th:if="${pageInfo.isFirstPage}">首页</a>
+              <a th:if="${!pageInfo.isFirstPage}" th:href="@{/findAll(currentSize=1,pageSize='')}"
+                 style="color: red;">首页</a>
+
+              <a th:if="${pageInfo.isFirstPage}">上一页</a>
+              <a th:if="${!pageInfo.isFirstPage}" th:href="@{/findAll(currentSize=${pageInfo.pageNum-1},pageSize='')}"
+                 style="color: red">上一页</a>
+
+              <a th:if="${pageInfo.isLastPage}">下一页</a>
+              <a th:if="${!pageInfo.isLastPage}" th:href="@{/findAll(currentSize=${pageInfo.pageNum+1},pageSize='')}"
+                 style="color: red">下一页</a>
+
+              <a th:if="${pageInfo.isLastPage}">末页</a>
+              <a th:if="${!pageInfo.isLastPage}" th:href="@{/findAll(currentSize=${pageInfo.pages},pageSize='')}"
+                 style="color: red">末页</a>
+              <span>转到第</span>
+              <input name="currentSize" th:value="${pageInfo.pageNum}"/>
+              <span>页</span>
+              <button type="submit">Go</button>
+
+            </div>
+          </td>
+
+
+        </tr>
+
+
+      </table>
+
+
+    </div>
+
   </div>
-  <div>
-    <table border="1" class="table">
-      <tr>
-        <td>书名</td>
-        <td>出版社</td>
-        <td>作者</td>
-        <td>出版日期</td>
-        <td>页数</td>
-        <td>价格</td>
-        <td>内容摘要</td>
-        <td colspan="2">操作</td>
-      </tr>
+</form>
 
- <tr th:each="book,hp:${books}" th:class="${hp.odd}?a:b">
-   <td th:text="${book.id}"></td>
-   <td th:text="${book.name}"></td>
-   <td th:text="${book.author}"></td>
-   <td th:text="${#dates.format(book.publicshdate,'yyyy年MM月dd日')}"></td>
-   <td th:text="${book.page}"></td>
-   <td th:text="${book.price}"></td>
-   <td th:text="${book.content}"></td>
-   <td>
-     <a th:href="@{/updateBook(id=${book.id})}">修改</a>
-   </td>
-   <td>
-     <a th:href="@{/delBook(id=${book.id})}">删除</a>
-   </td>
+<script>
 
- </tr>
-      <tr>
-        <td>
-          <button>
-            <a th:href="@{/addBook}">新增图书</a>
-          </button>
-        </td>
-      </tr>
-
-    </table>
-  </div>
-</div>
+</script>
 
 
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
